@@ -46,5 +46,27 @@ for (const file of eventFiles) {
     }
 }
 
+// Import database for proper shutdown handling
+const warningsDB = require('./utils/warningsSQLiteDB');
+
+// Add proper shutdown handlers
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('exit', () => gracefulShutdown('exit'));
+
+function gracefulShutdown(signal) {
+    console.log(`Received ${signal}. Closing database connections and shutting down...`);
+    
+    // Close the database connection properly
+    if (warningsDB && typeof warningsDB.close === 'function') {
+        warningsDB.close();
+    }
+    
+    // Exit with success code
+    if (signal !== 'exit') {
+        process.exit(0);
+    }
+}
+
 // Login to Discord
 client.login(process.env.TOKEN);
