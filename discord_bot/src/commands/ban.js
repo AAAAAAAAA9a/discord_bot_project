@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const ConfigLoader = require('../../utils/configLoader');
+const ModerationUtils = require('../../utils/moderationUtils');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,25 +36,17 @@ module.exports = {
             });
             
             // Send confirmation message
-            const banMessage = config.wiadomosci.ban
-                .replace('{user}', targetUser.toString())
-                .replace('{reason}', reason);
+            const banMessage = ModerationUtils.formatMessage(config.wiadomosci.ban, {
+                user: targetUser.toString(),
+                reason: reason
+            });
                 
             await interaction.reply(banMessage);
             
             // Log the action
-            if (config.kanaly.logi_moderacji) {
-                const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_moderacji);
-                if (logChannel) {
-                    await logChannel.send(`${interaction.user.toString()} zbanował użytkownika ${targetUser.toString()}. Powód: ${reason}`);
-                }
-            }
+            await ModerationUtils.logAction(interaction, 'zbanował', targetUser, { reason });
         } catch (error) {
-            console.error('Error banning user:', error);
-            await interaction.reply({
-                content: 'An error occurred while trying to ban the user.',
-                ephemeral: true
-            });
+            await ModerationUtils.handleError(error, interaction, 'ban the user');
         }
     }
 }

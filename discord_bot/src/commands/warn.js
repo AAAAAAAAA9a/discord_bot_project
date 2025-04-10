@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const ConfigLoader = require('../../utils/configLoader');
 const warningsDB = require('../../utils/warningsSQLiteDB');
+const ModerationUtils = require('../../utils/moderationUtils');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -34,33 +35,27 @@ module.exports = {
             const warningCount = await warningsDB.getWarningCount(interaction.guild.id, targetUser.id);
             
             // Send warning message to the user
-            try {
-                await targetUser.send(`You have been warned in ${interaction.guild.name}. Reason: ${reason}\nThis is warning #${warningCount} on your record.`);
-            } catch (err) {
-                console.log('Could not send DM to the user');
-            }
+            await ModerationUtils.sendDM(
+                targetUser, 
+                `You have been warned in ${interaction.guild.name}. Reason: ${reason}\nThis is warning #${warningCount} on your record.`
+            );
             
             // Send confirmation message
-            const warnMessage = config.wiadomosci.warn
-                .replace('{user}', targetUser.toString())
-                .replace('{reason}', reason)
-                .replace('{count}', warningCount.toString());
+            const warnMessage = ModerationUtils.formatMessage(config.wiadomosci.warn, {
+                user: targetUser.toString(),
+                reason: reason,
+                count: warningCount.toString()
+            });
                 
             await interaction.reply(`${warnMessage}\nWarning ID: \`${warning.id}\` (Total warnings: ${warningCount})`);
             
             // Log the action
-            if (config.kanaly.logi_moderacji) {
-                const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_moderacji);
-                if (logChannel) {
-                    await logChannel.send(`${interaction.user.toString()} ostrzegł użytkownika ${targetUser.toString()}. Powód: ${reason}\nWarning ID: ${warning.id} (Total: ${warningCount})`);
-                }
-            }
-        } catch (error) {
-            console.error('Error warning user:', error);
-            await interaction.reply({
-                content: 'An error occurred while trying to warn the user.',
-                ephemeral: true
+            await ModerationUtils.logAction(interaction, 'ostrzegł', targetUser, {
+                reason: reason,
+                additionalInfo: `Warning ID: ${warning.id} (Total: ${warningCount})`
             });
+        } catch (error) {
+            await ModerationUtils.handleError(error, interaction, 'warn the user');
         }
     }
 }
