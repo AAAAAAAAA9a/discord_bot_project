@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const warningsDB = require('../../utils/warningsSQLiteDB');
+const warningsDB = require('../utils/warningsSQLiteDB');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -43,7 +43,7 @@ module.exports = {
             await interaction.reply(`Cleared all warnings (${warningCount}) from ${targetUser.toString()}.\nReason: ${reason}`);
             
             // Log the action
-            const ConfigLoader = require('../../utils/configLoader');
+            const ConfigLoader = require('../utils/configLoader');
             const config = ConfigLoader.loadConfig('moderacja');
             
             if (config.kanaly && config.kanaly.logi_moderacji) {

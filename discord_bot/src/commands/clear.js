@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const ConfigLoader = require('../../utils/configLoader');
+const ConfigLoader = require('../utils/configLoader');
+const ModerationUtils = require('../utils/moderationUtils');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,25 +24,21 @@ module.exports = {
             await interaction.channel.bulkDelete(messages);
             
             // Send confirmation message
-            const clearMessage = config.wiadomosci.clear.replace('{count}', count);
+            const clearMessage = ModerationUtils.formatMessage(config.wiadomosci.clear, {
+                count: count.toString()
+            });
+            
             await interaction.reply({
                 content: clearMessage,
                 ephemeral: true
             });
             
             // Log the action
-            if (config.kanaly.logi_moderacji) {
-                const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_moderacji);
-                if (logChannel) {
-                    await logChannel.send(`${interaction.user.toString()} usunął ${count} wiadomości w kanale ${interaction.channel.toString()}.`);
-                }
-            }
-        } catch (error) {
-            console.error('Error deleting messages:', error);
-            await interaction.reply({
-                content: 'An error occurred while trying to delete messages. Messages older than 14 days cannot be bulk deleted.',
-                ephemeral: true
+            await ModerationUtils.logAction(interaction, 'usunął', null, { 
+                additionalInfo: `${count} wiadomości w kanale ${interaction.channel.toString()}`
             });
+        } catch (error) {
+            await ModerationUtils.handleError(error, interaction, 'delete messages. Messages older than 14 days cannot be bulk deleted');
         }
     }
 }

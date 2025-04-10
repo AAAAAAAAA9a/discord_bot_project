@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const warningsDB = require('../../utils/warningsSQLiteDB');
+const warningsDB = require('../utils/warningsSQLiteDB');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -56,7 +56,7 @@ module.exports = {
             await interaction.reply(`Warning with ID \`${warningId}\` has been removed from ${targetUserMention}.\nReason: ${reason}`);
             
             // Log the action if there's a log channel
-            const ConfigLoader = require('../../utils/configLoader');
+            const ConfigLoader = require('../utils/configLoader');
             const config = ConfigLoader.loadConfig('moderacja');
             
             if (config.kanaly && config.kanaly.logi_moderacji) {

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const ConfigLoader = require('../../utils/configLoader');
+const ConfigLoader = require('../utils/configLoader');
+const ModerationUtils = require('../utils/moderationUtils');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -46,11 +47,12 @@ module.exports = {
             // This would typically involve a database, but for simplicity we're just logging it
             console.log(`User ${targetUser.tag} sent to gulag. Original roles: ${userRoles.join(', ')}`);
             
-            // Send notification messages
-            const gulagMessage = config.wiadomosci.uwieziony
-                .replace('{user}', targetUser.toString())
-                .replace('{reason}', reason)
-                .replace('{duration}', duration);
+            // Send notification messages using utility
+            const gulagMessage = ModerationUtils.formatMessage(config.wiadomosci.uwieziony, {
+                user: targetUser.toString(),
+                reason: reason,
+                duration: duration
+            });
                 
             await interaction.reply(gulagMessage);
             
@@ -58,14 +60,15 @@ module.exports = {
             if (config.kanaly.gulag) {
                 const gulagChannel = interaction.guild.channels.cache.get(config.kanaly.gulag);
                 if (gulagChannel) {
-                    const welcomeMessage = config.wiadomosci.wiadomosc_powitalna
-                        .replace('{user}', targetUser.toString())
-                        .replace('{duration}', duration);
+                    const welcomeMessage = ModerationUtils.formatMessage(config.wiadomosci.wiadomosc_powitalna, {
+                        user: targetUser.toString(),
+                        duration: duration
+                    });
                     await gulagChannel.send(welcomeMessage);
                 }
             }
             
-            // Log the action
+            // Log the action using utility
             if (config.kanaly.logi_gulag) {
                 const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_gulag);
                 if (logChannel) {
@@ -73,11 +76,7 @@ module.exports = {
                 }
             }
         } catch (error) {
-            console.error('Error sending user to gulag:', error);
-            await interaction.reply({
-                content: 'An error occurred while trying to send the user to the gulag.',
-                ephemeral: true
-            });
+            await ModerationUtils.handleError(error, interaction, 'send the user to the gulag');
         }
     }
 }

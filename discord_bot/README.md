@@ -15,12 +15,24 @@ A modular Discord bot with various functionalities including message sending, re
 1. Clone this repository
 2. Install dependencies:
    ```
-   npm install
+   npm install discord.js sqlite3 dotenv
    ```
-3. Create a `.env` file based on `.env.example` and fill in your bot token and application ID:
+   
+   If you're having issues with the SQLite installation on certain environments:
+   ```
+   npm install --build-from-source sqlite3
+   ```
+
+3. Ensure your data directory exists:
+   ```
+   mkdir -p data
+   ```
+
+4. Create a `.env` file based on `.env.example` and fill in your bot token and application ID:
    ```
    TOKEN=your_discord_bot_token_here
    APPLICATION_ID=your_application_id_here
+   GUILD_ID=your_guild_id_here  # Optional: for development in a specific server
    ```
 4. Deploy slash commands:
    ```

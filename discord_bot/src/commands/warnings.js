@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
-const warningsDB = require('../../utils/warningsSQLiteDB');
+const warningsDB = require('../utils/warningsSQLiteDB');
 
 module.exports = {
     data: new SlashCommandBuilder()

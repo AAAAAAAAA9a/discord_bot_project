@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const ConfigLoader = require('../../utils/configLoader');
+const ConfigLoader = require('../utils/configLoader');
+const ModerationUtils = require('../utils/moderationUtils');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,25 +36,17 @@ module.exports = {
             await targetMember.kick(reason);
             
             // Send confirmation message
-            const kickMessage = config.wiadomosci.kick
-                .replace('{user}', targetUser.toString())
-                .replace('{reason}', reason);
+            const kickMessage = ModerationUtils.formatMessage(config.wiadomosci.kick, {
+                user: targetUser.toString(),
+                reason: reason
+            });
                 
             await interaction.reply(kickMessage);
             
-            // Log the action
-            if (config.kanaly.logi_moderacji) {
-                const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_moderacji);
-                if (logChannel) {
-                    await logChannel.send(`${interaction.user.toString()} wyrzucił użytkownika ${targetUser.toString()}. Powód: ${reason}`);
-                }
-            }
+            // Log the action using utility
+            await ModerationUtils.logAction(interaction, 'wyrzucił', targetUser, { reason });
         } catch (error) {
-            console.error('Error kicking user:', error);
-            await interaction.reply({
-                content: 'An error occurred while trying to kick the user.',
-                ephemeral: true
-            });
+            await ModerationUtils.handleError(error, interaction, 'kick the user');
         }
     }
 }
