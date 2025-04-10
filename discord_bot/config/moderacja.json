@@ -1,0 +1,16 @@
+{
+  "kanaly": {
+    "logi_moderacji": "123456789012345685"
+  },
+  "wiadomosci": {
+    "ban": "Użytkownik {user} został zbanowany. Powód: {reason}",
+    "kick": "Użytkownik {user} został wyrzucony. Powód: {reason}",
+    "warn": "Użytkownik {user} został ostrzeżony. Powód: {reason}",
+    "mute": "Użytkownik {user} został wyciszony na {duration}. Powód: {reason}",
+    "unmute": "Użytkownik {user} został odciszony.",
+    "clear": "Usunięto {count} wiadomości."
+  },
+  "role": {
+    "moderator": "987654321098765438"
+  }
+}

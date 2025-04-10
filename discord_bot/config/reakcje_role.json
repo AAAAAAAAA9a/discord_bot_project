@@ -1,0 +1,27 @@
+{
+  "kanaly": {
+    "przydzielanie_rol": "123456789012345684"
+  },
+  "wiadomosci": {
+    "wybierz_role": "Zareaguj, aby otrzymać odpowiednią rolę:",
+    "rola_dodana": "Dodano rolę: {role}",
+    "rola_usunieta": "Usunięto rolę: {role}"
+  },
+  "role_reakcje": [
+    {
+      "emoji": "🔴",
+      "rola_id": "987654321098765435",
+      "nazwa": "Czerwony"
+    },
+    {
+      "emoji": "🔵",
+      "rola_id": "987654321098765436",
+      "nazwa": "Niebieski"
+    },
+    {
+      "emoji": "🟢",
+      "rola_id": "987654321098765437",
+      "nazwa": "Zielony"
+    }
+  ]
+}

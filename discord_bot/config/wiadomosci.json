@@ -1,0 +1,28 @@
+{
+  "wiadomosci": {
+    "powitanie": "Witaj na naszym serwerze Discord!",
+    "pozegnanie": "Do zobaczenia następnym razem!",
+    "informacje": "To jest kanał informacyjny.",
+    "zasady": "Prosimy o przestrzeganie zasad serwera."
+  },
+  "kanaly": {
+    "powitania": "123456789012345678",
+    "zasady": "123456789012345679",
+    "ogloszenia": "123456789012345680",
+    "ogolny": "123456789012345681"
+  },
+  "komendy": [
+    {
+      "nazwa": "informacje",
+      "wiadomosc": "Witaj na naszym serwerze! Oto informacje."
+    },
+    {
+      "nazwa": "zasady",
+      "wiadomosc": "Oto zasady obowiązujące na serwerze: 1. Bądź miły. 2. Szanuj innych."
+    },
+    {
+      "nazwa": "pomoc",
+      "wiadomosc": "Dostępne komendy: /informacje, /zasady, /pomoc"
+    }
+  ]
+}

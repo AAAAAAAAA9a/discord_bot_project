@@ -1,0 +1,16 @@
+{
+  "kanaly": {
+    "weryfikacja": "123456789012345682",
+    "logi_weryfikacji": "123456789012345683"
+  },
+  "role": {
+    "niezweryfikowany": "987654321098765432",
+    "zweryfikowany": "987654321098765433",
+    "czlonek": "987654321098765434"
+  },
+  "wiadomosci": {
+    "sukces": "Zostałeś pomyślnie zweryfikowany!",
+    "blad": "Weryfikacja nie powiodła się. Spróbuj ponownie.",
+    "instrukcja": "Aby się zweryfikować, użyj komendy /weryfikuj"
+  }
+}

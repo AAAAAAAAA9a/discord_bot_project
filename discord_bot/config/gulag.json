@@ -1,0 +1,14 @@
+{
+  "kanaly": {
+    "gulag": "123456789012345686",
+    "logi_gulag": "123456789012345687"
+  },
+  "role": {
+    "wiezien": "987654321098765439"
+  },
+  "wiadomosci": {
+    "uwieziony": "Użytkownik {user} został wtrącony do gulagu na {duration}. Powód: {reason}",
+    "uwolniony": "Użytkownik {user} został uwolniony z gulagu.",
+    "wiadomosc_powitalna": "Witaj w gulagu, {user}! Zostałeś tu wtrącony na {duration}."
+  }
+}
