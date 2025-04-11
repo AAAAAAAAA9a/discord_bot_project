@@ -23,7 +23,6 @@ module.exports = {
         const config = ConfigLoader.loadConfig('moderacja');
         
         try {
-            // Store the warning in the database
             const warning = await warningsDB.addWarning(
                 interaction.guild.id,
                 targetUser.id,
@@ -31,16 +30,13 @@ module.exports = {
                 reason
             );
             
-            // Get the total number of warnings
             const warningCount = await warningsDB.getWarningCount(interaction.guild.id, targetUser.id);
             
-            // Send warning message to the user
             await ModerationUtils.sendDM(
                 targetUser, 
                 `You have been warned in ${interaction.guild.name}. Reason: ${reason}\nThis is warning #${warningCount} on your record.`
             );
             
-            // Send confirmation message
             const warnMessage = ModerationUtils.formatMessage(config.wiadomosci.warn, {
                 user: targetUser.toString(),
                 reason: reason,
@@ -49,7 +45,6 @@ module.exports = {
                 
             await interaction.reply(`${warnMessage}\nWarning ID: \`${warning.id}\` (Total warnings: ${warningCount})`);
             
-            // Log the action
             await ModerationUtils.logAction(interaction, 'ostrzegł', targetUser, {
                 reason: reason,
                 additionalInfo: `Warning ID: ${warning.id} (Total: ${warningCount})`

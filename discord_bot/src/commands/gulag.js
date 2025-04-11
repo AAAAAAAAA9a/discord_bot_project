@@ -27,27 +27,21 @@ module.exports = {
         const duration = interaction.options.getString('duration') || 'Indefinite';
         const config = ConfigLoader.loadConfig('gulag');
         
-        // Store the user's original roles to restore them later
         const userRoles = targetMember.roles.cache.filter(role => role.id !== interaction.guild.id).map(role => role.id);
         
         try {
-            // Remove all roles from the user except @everyone
             for (const role of targetMember.roles.cache.values()) {
-                if (role.id !== interaction.guild.id) { // Skip @everyone role
+                if (role.id !== interaction.guild.id) {
                     await targetMember.roles.remove(role);
                 }
             }
             
-            // Add the prisoner role
             if (config.role.wiezien) {
                 await targetMember.roles.add(config.role.wiezien);
             }
             
-            // Store the user's roles and punishment info in a database or config file
-            // This would typically involve a database, but for simplicity we're just logging it
             console.log(`User ${targetUser.tag} sent to gulag. Original roles: ${userRoles.join(', ')}`);
             
-            // Send notification messages using utility
             const gulagMessage = ModerationUtils.formatMessage(config.wiadomosci.uwieziony, {
                 user: targetUser.toString(),
                 reason: reason,
@@ -56,7 +50,6 @@ module.exports = {
                 
             await interaction.reply(gulagMessage);
             
-            // Send a message to the gulag channel if configured
             if (config.kanaly.gulag) {
                 const gulagChannel = interaction.guild.channels.cache.get(config.kanaly.gulag);
                 if (gulagChannel) {
@@ -68,7 +61,6 @@ module.exports = {
                 }
             }
             
-            // Log the action using utility
             if (config.kanaly.logi_gulag) {
                 const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_gulag);
                 if (logChannel) {

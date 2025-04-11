@@ -19,11 +19,9 @@ module.exports = {
         const config = ConfigLoader.loadConfig('moderacja');
         
         try {
-            // Fetch and delete messages
             const messages = await interaction.channel.messages.fetch({ limit: count });
             await interaction.channel.bulkDelete(messages);
             
-            // Send confirmation message
             const clearMessage = ModerationUtils.formatMessage(config.wiadomosci.clear, {
                 count: count.toString()
             });
@@ -33,7 +31,6 @@ module.exports = {
                 ephemeral: true
             });
             
-            // Log the action
             await ModerationUtils.logAction(interaction, 'usunął', null, { 
                 additionalInfo: `${count} wiadomości w kanale ${interaction.channel.toString()}`
             });

@@ -4,7 +4,6 @@ const fs = require('fs');
 
 class WarningsSQLiteDB {
     constructor() {
-        // Ensure the data directory exists
         const dataDir = path.join(__dirname, '../../data');
         if (!fs.existsSync(dataDir)) {
             fs.mkdirSync(dataDir, { recursive: true });
@@ -23,7 +22,6 @@ class WarningsSQLiteDB {
     }
     
     initializeDatabase() {
-        // Create tables if they don't exist
         const warningsTable = `
             CREATE TABLE IF NOT EXISTS warnings (
                 id TEXT PRIMARY KEY,
@@ -43,7 +41,6 @@ class WarningsSQLiteDB {
             }
             console.log('Warnings table initialized');
             
-            // Create indices for faster lookups
             this.db.run('CREATE INDEX IF NOT EXISTS idx_warnings_guild_user ON warnings(guild_id, user_id)');
         });
     }
@@ -104,7 +101,6 @@ class WarningsSQLiteDB {
                         return;
                     }
                     
-                    // Check if any row was affected
                     resolve(this.changes > 0);
                 }
             );
@@ -123,7 +119,6 @@ class WarningsSQLiteDB {
                         return;
                     }
                     
-                    // Check if any rows were affected
                     resolve(this.changes > 0);
                 }
             );
@@ -148,7 +143,6 @@ class WarningsSQLiteDB {
         });
     }
     
-    // Generate a unique ID for warnings
     generateWarningId(userId) {
         const timestamp = Date.now();
         const shortUserId = userId.substring(0, 6);
@@ -156,7 +150,6 @@ class WarningsSQLiteDB {
         return `${timestamp}-${shortUserId}-${randomStr}`;
     }
     
-    // Get the count of warnings for a user
     getWarningCount(guildId, userId) {
         return new Promise((resolve, reject) => {
             this.db.get(
@@ -175,7 +168,6 @@ class WarningsSQLiteDB {
         });
     }
     
-    // Close the database connection when the bot shuts down
     close() {
         this.db.close((err) => {
             if (err) {

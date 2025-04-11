@@ -29,13 +29,11 @@ module.exports = {
         const config = ConfigLoader.loadConfig('moderacja');
         
         try {
-            // Ban the user
             await interaction.guild.members.ban(targetUser, {
                 deleteMessageDays: deleteDays,
                 reason: reason
             });
             
-            // Send confirmation message
             const banMessage = ModerationUtils.formatMessage(config.wiadomosci.ban, {
                 user: targetUser.toString(),
                 reason: reason
@@ -43,7 +41,6 @@ module.exports = {
                 
             await interaction.reply(banMessage);
             
-            // Log the action
             await ModerationUtils.logAction(interaction, 'zbanował', targetUser, { reason });
         } catch (error) {
             await ModerationUtils.handleError(error, interaction, 'ban the user');

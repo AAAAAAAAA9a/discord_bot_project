@@ -20,7 +20,6 @@ module.exports = {
         const reason = interaction.options.getString('reason') || 'No reason provided';
         
         try {
-            // Find the warning directly by ID
             const warning = await warningsDB.findWarning(warningId);
             
             if (!warning) {
@@ -33,7 +32,6 @@ module.exports = {
             
             const targetUserId = warning.user_id;
             
-            // Remove the warning
             const success = await warningsDB.removeWarning(interaction.guild.id, targetUserId, warningId);
             
             if (!success) {
@@ -44,18 +42,15 @@ module.exports = {
                 return;
             }
             
-            // Get the target user for the response
             let targetUserMention = `User ID: ${targetUserId}`;
             try {
                 const targetUser = await interaction.client.users.fetch(targetUserId);
                 targetUserMention = targetUser.toString();
             } catch {
-                // Could not fetch user, use ID instead
             }
             
             await interaction.reply(`Warning with ID \`${warningId}\` has been removed from ${targetUserMention}.\nReason: ${reason}`);
             
-            // Log the action if there's a log channel
             const ConfigLoader = require('../utils/configLoader');
             const config = ConfigLoader.loadConfig('moderacja');
             

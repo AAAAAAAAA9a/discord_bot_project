@@ -20,7 +20,6 @@ module.exports = {
         const reason = interaction.options.getString('reason') || 'No reason provided';
         
         try {
-            // Get current warnings count for logging
             const warnings = await warningsDB.getWarnings(interaction.guild.id, targetUser.id);
             const warningCount = warnings.length;
             
@@ -29,7 +28,6 @@ module.exports = {
                 return;
             }
             
-            // Clear all warnings
             const success = await warningsDB.clearWarnings(interaction.guild.id, targetUser.id);
             
             if (!success) {
@@ -42,7 +40,6 @@ module.exports = {
             
             await interaction.reply(`Cleared all warnings (${warningCount}) from ${targetUser.toString()}.\nReason: ${reason}`);
             
-            // Log the action
             const ConfigLoader = require('../utils/configLoader');
             const config = ConfigLoader.loadConfig('moderacja');
             
@@ -53,7 +50,6 @@ module.exports = {
                 }
             }
             
-            // Try to notify the user
             try {
                 await targetUser.send(`All your warnings in ${interaction.guild.name} have been cleared.\nReason: ${reason}`);
             } catch (err) {

@@ -1,6 +1,9 @@
 {
   "kanaly": {
-    "logi_moderacji": "123456789012345685"
+    "logi_moderacji": "123456789012345685",
+    "wnioski_moderacyjne": "123456789012345689",
+    "centrum_moderacji": "123456789012345694",
+    "publiczne_bany": "123456789012345695"
   },
   "wiadomosci": {
     "ban": "Użytkownik {user} został zbanowany. Powód: {reason}",
@@ -8,9 +11,44 @@
     "warn": "Użytkownik {user} został ostrzeżony. Powód: {reason}",
     "mute": "Użytkownik {user} został wyciszony na {duration}. Powód: {reason}",
     "unmute": "Użytkownik {user} został odciszony.",
-    "clear": "Usunięto {count} wiadomości."
+    "clear": "Usunięto {count} wiadomości.",
+    "publiczny_ban": "**BAN** | Użytkownik: {user} | Powód: {reason} | Moderator: {moderator}",
+    "raport_mod": "Raport moderacyjny #{id}\nModerator: {moderator}\nUżytkownik: {user}\nAkcja: {action}\nPowód: {reason}\nData: {date}",
+    "automod_filtr": "Automatyczny moderator usunął wiadomość użytkownika {user}. Powód: filtr słów.",
+    "automod_spam": "Automatyczny moderator wyciszył użytkownika {user} na 10 minut. Powód: spam.",
+    "automod_caps": "Automatyczny moderator usunął wiadomość użytkownika {user}. Powód: nadużycie wielkich liter."
   },
   "role": {
-    "moderator": "987654321098765438"
+    "moderator": "987654321098765438",
+    "starszy_moderator": "987654321098765442",
+    "pomocnik_moderatora": "987654321098765443",
+    "stażysta_moderator": "987654321098765444"
+  },
+  "uprawnienia": {
+    "moze_banowac": ["admin", "moderator", "starszy_moderator"],
+    "moze_kickowac": ["admin", "moderator", "starszy_moderator", "pomocnik_moderatora"],
+    "moze_mutowac": ["admin", "moderator", "starszy_moderator", "pomocnik_moderatora", "stażysta_moderator"],
+    "moze_ostrzegac": ["admin", "moderator", "starszy_moderator", "pomocnik_moderatora", "stażysta_moderator"],
+    "moze_usuwac_wiadomosci": ["admin", "moderator", "starszy_moderator", "pomocnik_moderatora", "stażysta_moderator"]
+  },
+  "automod": {
+    "wlaczony": true,
+    "max_ostrzezenia": 5,
+    "czas_wyciszenia": {
+      "pierwsze": 600,
+      "drugie": 1800,
+      "trzecie": 3600,
+      "czwarte": 86400,
+      "piąte": 604800
+    },
+    "filtrowane_slowa": [
+      "słowo1",
+      "słowo2",
+      "słowo3"
+    ],
+    "limit_caps_procent": 70,
+    "limit_spam_wiadomosci": 5,
+    "limit_spam_czas": 3,
+    "wylaczone_kanaly": ["123456789012345691", "123456789012345692", "123456789012345693"]
   }
 }

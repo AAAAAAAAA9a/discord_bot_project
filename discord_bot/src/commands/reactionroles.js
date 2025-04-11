@@ -21,21 +21,17 @@ module.exports = {
                 return;
             }
             
-            // Create an embed for the reaction roles
             const embed = new EmbedBuilder()
                 .setColor(0x0099FF)
                 .setTitle('Role Selection')
                 .setDescription(config.wiadomosci.wybierz_role);
                 
-            // Add fields for each role
             config.role_reakcje.forEach(role => {
                 embed.addFields({ name: `${role.emoji} ${role.nazwa}`, value: `React with ${role.emoji} to get this role.`, inline: true });
             });
             
-            // Send the message and add reactions
             const message = await channel.send({ embeds: [embed] });
             
-            // Add reactions to the message
             for (const role of config.role_reakcje) {
                 await message.react(role.emoji);
             }

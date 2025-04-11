@@ -17,7 +17,6 @@ module.exports = {
         const config = ConfigLoader.loadConfig('gulag');
         
         try {
-            // Check if the user has the prisoner role
             if (config.role.wiezien && !targetMember.roles.cache.has(config.role.wiezien)) {
                 await interaction.reply({
                     content: 'This user is not in the gulag.',
@@ -26,13 +25,10 @@ module.exports = {
                 return;
             }
             
-            // Remove the prisoner role
             if (config.role.wiezien) {
                 await targetMember.roles.remove(config.role.wiezien);
             }
             
-            // Here we would restore the user's original roles from a database
-            // For now, we'll just give them back the default member role
             const verificationConfig = ConfigLoader.loadConfig('weryfikacja');
             if (verificationConfig.role.czlonek) {
                 await targetMember.roles.add(verificationConfig.role.czlonek);
@@ -41,13 +37,11 @@ module.exports = {
                 await targetMember.roles.add(verificationConfig.role.zweryfikowany);
             }
             
-            // Send notification messages
             const releaseMessage = config.wiadomosci.uwolniony
                 .replace('{user}', targetUser.toString());
                 
             await interaction.reply(releaseMessage);
             
-            // Log the action
             if (config.kanaly.logi_gulag) {
                 const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_gulag);
                 if (logChannel) {

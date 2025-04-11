@@ -1,16 +1,51 @@
 {
   "kanaly": {
     "weryfikacja": "123456789012345682",
-    "logi_weryfikacji": "123456789012345683"
+    "logi_weryfikacji": "123456789012345683",
+    "poczekalnia": "123456789012345696",
+    "informacje_weryfikacja": "123456789012345697"
   },
   "role": {
     "niezweryfikowany": "987654321098765432",
     "zweryfikowany": "987654321098765433",
-    "czlonek": "987654321098765434"
+    "czlonek": "987654321098765434",
+    "weryfikator": "987654321098765445",
+    "gość": "987654321098765446"
   },
   "wiadomosci": {
     "sukces": "Zostałeś pomyślnie zweryfikowany!",
     "blad": "Weryfikacja nie powiodła się. Spróbuj ponownie.",
-    "instrukcja": "Aby się zweryfikować, użyj komendy /weryfikuj"
+    "instrukcja": "Aby się zweryfikować, użyj komendy /weryfikuj",
+    "wiadomosc_powitalna": "Witaj {user} na naszym serwerze! Aby uzyskać pełen dostęp, musisz przejść weryfikację. Przejdź do kanału {channel_weryfikacja} i postępuj zgodnie z instrukcjami.",
+    "oczekiwanie_na_weryfikacje": "Twoja prośba o weryfikację została wysłana do moderatorów. Prosimy o cierpliwość.",
+    "weryfikacja_manualna": "Nowy użytkownik {user} oczekuje na weryfikację. Użyj komendy /zaakceptuj lub /odrzuć aby podjąć decyzję.",
+    "weryfikacja_zaakceptowana": "Weryfikacja użytkownika {user} została zaakceptowana przez {moderator}.",
+    "weryfikacja_odrzucona": "Weryfikacja użytkownika {user} została odrzucona przez {moderator}. Powód: {reason}",
+    "ankieta_weryfikacyjna": "Aby się zweryfikować, odpowiedz na następujące pytania:\n1. Skąd dowiedziałeś się o naszym serwerze?\n2. Jakie są Twoje zainteresowania związane z tematyką serwera?\n3. Czy przeczytałeś i zgadzasz się z zasadami serwera?"
+  },
+  "ustawienia": {
+    "tryb_weryfikacji": "captcha",
+    "dostepne_tryby_weryfikacji": ["captcha", "ankieta", "manualna", "reakcja"],
+    "czas_oczekiwania": 300,
+    "minimalny_wiek_konta": 7,
+    "automatyczne_usuwanie_niezweryfikowanych": {
+      "wlaczone": true,
+      "czas_do_usuniecia": 172800
+    },
+    "pytania_captcha": {
+      "liczba_pytan": 1,
+      "trudnosc": "srednia",
+      "dostepne_trudnosci": ["łatwa", "srednia", "trudna"]
+    },
+    "dozwolone_kanaly_dla_niezweryfikowanych": [
+      "123456789012345682",
+      "123456789012345697"
+    ]
+  },
+  "captcha": {
+    "dlugosc": 6,
+    "czas_waznosci": 300,
+    "maksymalne_proby": 3,
+    "blokada_po_nieudanych_probach": 1800
   }
 }

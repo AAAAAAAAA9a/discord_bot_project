@@ -1,9 +1,6 @@
 const { PermissionFlagsBits } = require('discord.js');
 const ConfigLoader = require('./configLoader');
 
-/**
- * Utility functions for moderation commands
- */
 class ModerationUtils {
     /**
      * Log a moderation action to the configured log channel

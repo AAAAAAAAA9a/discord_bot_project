@@ -41,7 +41,6 @@ module.exports = {
                     const moderator = await interaction.client.users.fetch(warning.moderator_id);
                     moderatorInfo = moderator.tag;
                 } catch {
-                    // Moderator couldn't be fetched, use default
                 }
                 
                 const date = new Date(warning.timestamp);

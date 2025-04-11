@@ -1,28 +1,44 @@
 {
   "wiadomosci": {
-    "powitanie": "Witaj na naszym serwerze Discord!",
-    "pozegnanie": "Do zobaczenia następnym razem!",
-    "informacje": "To jest kanał informacyjny.",
-    "zasady": "Prosimy o przestrzeganie zasad serwera."
+    "powitanie": "Witaj {user} na naszym serwerze Discord! Zapoznaj się z kanałem {channel_zasady} i baw się dobrze!",
+    "pozegnanie": "Do zobaczenia następnym razem! Użytkownik {user} opuścił nasz serwer.",
+    "informacje": "To jest kanał informacyjny. Tutaj będą publikowane wszystkie ważne ogłoszenia.",
+    "zasady": "Prosimy o przestrzeganie zasad serwera:\n1. Bądź kulturalny i szanuj innych członków.\n2. Zakaz spamowania i floodowania.\n3. Nie reklamuj innych serwerów bez zgody administracji.\n4. Zakaz publikowania treści NSFW poza wyznaczonymi kanałami."
   },
   "kanaly": {
     "powitania": "123456789012345678",
     "zasady": "123456789012345679",
     "ogloszenia": "123456789012345680",
-    "ogolny": "123456789012345681"
+    "ogolny": "123456789012345681",
+    "pomoc": "123456789012345690",
+    "bot_komendy": "123456789012345691",
+    "muzyka": "123456789012345692",
+    "gry": "123456789012345693"
   },
   "komendy": [
     {
       "nazwa": "informacje",
-      "wiadomosc": "Witaj na naszym serwerze! Oto informacje."
+      "wiadomosc": "Witaj na naszym serwerze! Jest to społeczność poświęcona [temat serwera]. Mamy różne kanały tekstowe i głosowe, gdzie możesz rozmawiać z innymi członkami. Jeśli masz pytania, napisz na kanale #pomoc lub skontaktuj się z administracją."
     },
     {
       "nazwa": "zasady",
-      "wiadomosc": "Oto zasady obowiązujące na serwerze: 1. Bądź miły. 2. Szanuj innych."
+      "wiadomosc": "Oto zasady obowiązujące na serwerze:\n1. Bądź miły i szanuj innych użytkowników.\n2. Zakaz spamowania, floodowania i excessive caps.\n3. Nie reklamuj innych serwerów bez zgody administracji.\n4. Nie publikuj treści NSFW poza wyznaczonymi kanałami.\n5. Zakaz obrażania, nękania i dyskryminacji.\n6. Słuchaj poleceń administracji i moderacji.\n7. Używaj odpowiednich kanałów do odpowiednich tematów.\n\nNieprzestrzeganie zasad może skutkować ostrzeżeniem, czasowym wyrzuceniem lub permanentnym banem."
     },
     {
       "nazwa": "pomoc",
-      "wiadomosc": "Dostępne komendy: /informacje, /zasady, /pomoc"
+      "wiadomosc": "Dostępne komendy:\n/informacje - informacje o serwerze\n/zasady - zasady serwera\n/pomoc - lista dostępnych komend\n/warn - ostrzeganie użytkownika\n/warnings - sprawdzanie ostrzeżeń\n/ban - banowanie użytkownika\n/kick - wyrzucanie użytkownika\n/clear - czyszczenie wiadomości\n/verify - weryfikacja użytkownika\n/gulag - wysłanie użytkownika do gulagu\n/ungulag - uwolnienie użytkownika z gulagu"
+    },
+    {
+      "nazwa": "administracja",
+      "wiadomosc": "Lista administracji serwera:\n- Owner: @OwnerName\n- Administrator: @AdminName1, @AdminName2\n- Moderator: @ModName1, @ModName2, @ModName3\n\nW razie problemów, możesz skontaktować się z kimkolwiek z tej listy."
     }
-  ]
+  ],
+  "role": {
+    "admin": "987654321098765400",
+    "moderator": "987654321098765401",
+    "dj": "987654321098765402",
+    "bot": "987654321098765403",
+    "vip": "987654321098765404",
+    "uzytkownik": "987654321098765405"
+  }
 }

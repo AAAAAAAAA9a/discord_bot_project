@@ -16,7 +16,6 @@ module.exports = {
         const messageType = interaction.options.getString('type');
         const config = ConfigLoader.loadConfig('wiadomosci');
         
-        // Find the message in configuration
         const messageCommand = config.komendy.find(cmd => cmd.nazwa === messageType);
         
         if (messageCommand) {
@@ -27,7 +26,6 @@ module.exports = {
     }
 };
 
-// Helper function to get message choices from config
 function getMessageChoices() {
     const config = ConfigLoader.loadConfig('wiadomosci');
     if (!config.komendy || !Array.isArray(config.komendy)) return [];

@@ -17,28 +17,23 @@ module.exports = {
         const config = ConfigLoader.loadConfig('weryfikacja');
         
         try {
-            // Remove unverified role
             if (config.role.niezweryfikowany) {
                 await targetMember.roles.remove(config.role.niezweryfikowany);
             }
             
-            // Add verified role
             if (config.role.zweryfikowany) {
                 await targetMember.roles.add(config.role.zweryfikowany);
             }
             
-            // Add member role
             if (config.role.czlonek) {
                 await targetMember.roles.add(config.role.czlonek);
             }
             
-            // Send success message
             await interaction.reply({
                 content: config.wiadomosci.sukces.replace('{user}', targetUser.toString()),
                 ephemeral: true
             });
             
-            // Log the verification if the log channel is configured
             if (config.kanaly.logi_weryfikacji) {
                 const logChannel = interaction.guild.channels.cache.get(config.kanaly.logi_weryfikacji);
                 if (logChannel) {

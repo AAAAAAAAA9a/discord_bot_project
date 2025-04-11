@@ -1,9 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-/**
- * Utility to load configuration files from the config directory
- */
 class ConfigLoader {
     /**
      * Load a specific configuration file
