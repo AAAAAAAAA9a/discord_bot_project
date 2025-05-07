@@ -3,25 +3,50 @@
     "przydzielanie_rol": "123456789012345684"
   },
   "wiadomosci": {
-    "wybierz_role": "Zareaguj, aby otrzymać odpowiednią rolę:",
+    "wybierz_role": "Wybierz role reakcjami poniżej",
     "rola_dodana": "Dodano rolę: {role}",
     "rola_usunieta": "Usunięto rolę: {role}"
   },
   "role_reakcje": [
     {
-      "emoji": "🔴",
-      "rola_id": "785442114552070194",
-      "nazwa": "Czerwony"
+      "emoji": "💰",
+      "rola_id": "ID_ROLI_KAPITALIZM",
+      "nazwa": "Kapitalizm"
     },
     {
-      "emoji": "🔵",
-      "rola_id": "987654321098765436",
-      "nazwa": "Niebieski"
+      "emoji": "🏛️",
+      "rola_id": "ID_ROLI_TRZECIA_DROGA",
+      "nazwa": "Trzecia Droga"
     },
     {
-      "emoji": "🟢",
-      "rola_id": "987654321098765437",
-      "nazwa": "Zielony"
+      "emoji": "⚒️",
+      "rola_id": "ID_ROLI_SOCJALIZM",
+      "nazwa": "Socjalizm"
+    },
+    {
+      "emoji": "🌿",
+      "rola_id": "ID_ROLI_EKOLOGIZM",
+      "nazwa": "Ekologizm"
+    },
+    {
+      "emoji": "🏭",
+      "rola_id": "ID_ROLI_PRODUKTYWIZM",
+      "nazwa": "Produktywizm"
+    },
+    {
+      "emoji": "🧠",
+      "rola_id": "ID_ROLI_TRANSHUMANIZM",
+      "nazwa": "Transhumanizm"
+    },
+    {
+      "emoji": "✝️",
+      "rola_id": "ID_ROLI_RELIGIA",
+      "nazwa": "Chrześcijaństwo"
+    },
+    {
+      "emoji": "☮️",
+      "rola_id": "ID_ROLI_PACYFIZM",
+      "nazwa": "Pacyfizm"
     }
   ]
 }
