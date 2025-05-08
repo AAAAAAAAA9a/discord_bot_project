@@ -17,7 +17,7 @@ const client = new Client({
 client.commands = new Collection();
 client.events = new Collection();
 
-// Load commands
+// Load commands from main commands directory
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
@@ -29,6 +29,23 @@ for (const file of commandFiles) {
         client.commands.set(command.data.name, command);
     } else {
         console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+    }
+}
+
+// Load commands from config-ui/commands directory
+const configUiCommandsPath = path.join(__dirname, 'config-ui/commands');
+if (fs.existsSync(configUiCommandsPath)) {
+    const configUiCommandFiles = fs.readdirSync(configUiCommandsPath).filter(file => file.endsWith('.js'));
+    
+    for (const file of configUiCommandFiles) {
+        const filePath = path.join(configUiCommandsPath, file);
+        const command = require(filePath);
+        if ('data' in command && 'execute' in command) {
+            client.commands.set(command.data.name, command);
+            console.log(`[INFO] Loaded config UI command: ${command.data.name}`);
+        } else {
+            console.log(`[WARNING] The config UI command at ${filePath} is missing a required "data" or "execute" property.`);
+        }
     }
 }
 
