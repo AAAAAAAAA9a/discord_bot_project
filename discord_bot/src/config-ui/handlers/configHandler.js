@@ -54,7 +54,9 @@ async function handleConfigCommand(interaction, subcommand) {
  * @param {string} action - The button action identifier
  */
 async function handleButtonInteraction(interaction, action) {
-    const [configType, buttonAction, ...params] = action.split('_');
+    const parts = action.split('_');
+    const configType = parts[0];
+    const buttonAction = parts.slice(1).join('_');
     
     // Verify user has an active config session
     if (!configState.hasSession(interaction.user.id)) {
@@ -67,19 +69,19 @@ async function handleButtonInteraction(interaction, action) {
     
     switch (configType) {
         case 'reaction':
-            await reactionRolesView.handleButtonInteraction(interaction, buttonAction, params);
+            await reactionRolesView.handleButtonInteraction(interaction, buttonAction, []);
             break;
             
         case 'verify':
-            await verificationView.handleButtonInteraction(interaction, buttonAction, params);
+            await verificationView.handleButtonInteraction(interaction, buttonAction, []);
             break;
             
         case 'mod':
-            await moderationView.handleButtonInteraction(interaction, buttonAction, params);
+            await moderationView.handleButtonInteraction(interaction, buttonAction, []);
             break;
             
         case 'gulag':
-            await gulagView.handleButtonInteraction(interaction, buttonAction, params);
+            await gulagView.handleButtonInteraction(interaction, buttonAction, []);
             break;
             
         case 'save':
@@ -151,7 +153,10 @@ async function handleSelectMenuInteraction(interaction, action) {
  * @param {string} action - The modal action identifier
  */
 async function handleModalSubmit(interaction, action) {
-    const [configType, modalAction] = action.split('_');
+    // Wyodrębnij typ konfiguracji (pierwszy segment), resztę traktuj jako modalAction
+    const parts = action.split('_');
+    const configType = parts[0];
+    const modalAction = parts.slice(1).join('_');
     
     // Verify user has an active config session
     if (!configState.hasSession(interaction.user.id)) {
