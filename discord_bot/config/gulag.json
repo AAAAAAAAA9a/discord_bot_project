@@ -1,13 +1,13 @@
 {
   "kanaly": {
-    "gulag": "123456789012345686",
-    "logi_gulag": "123456789012345687",
-    "odwolania_gulag": "123456789012345688"
+    "gulag": "",
+    "logi_gulag": "",
+    "odwolania_gulag": ""
   },
   "role": {
-    "wiezien": "987654321098765439",
-    "nadzorca_gulagu": "987654321098765440",
-    "dozwolony_gulag": "987654321098765441"
+    "wiezien": "",
+    "nadzorca_gulagu": "",
+    "dozwolony_gulag": ""
   },
   "wiadomosci": {
     "uwieziony": "Użytkownik {user} został wtrącony do gulagu na {duration}. Powód: {reason}",

@@ -1,9 +1,9 @@
 {
   "kanaly": {
-    "logi_moderacji": "123456789012345685",
-    "wnioski_moderacyjne": "123456789012345689",
-    "centrum_moderacji": "123456789012345694",
-    "publiczne_bany": "123456789012345695"
+    "logi_moderacji": "",
+    "wnioski_moderacyjne": "",
+    "centrum_moderacji": "",
+    "publiczne_bany": ""
   },
   "wiadomosci": {
     "ban": "Użytkownik {user} został zbanowany. Powód: {reason}",
@@ -19,10 +19,10 @@
     "automod_caps": "Automatyczny moderator usunął wiadomość użytkownika {user}. Powód: nadużycie wielkich liter."
   },
   "role": {
-    "moderator": "987654321098765438",
-    "starszy_moderator": "987654321098765442",
-    "pomocnik_moderatora": "987654321098765443",
-    "stażysta_moderator": "987654321098765444"
+    "moderator": "",
+    "starszy_moderator": "",
+    "pomocnik_moderatora": "",
+    "stażysta_moderator": ""
   },
   "uprawnienia": {
     "moze_banowac": ["admin", "moderator", "starszy_moderator"],
@@ -32,7 +32,7 @@
     "moze_usuwac_wiadomosci": ["admin", "moderator", "starszy_moderator", "pomocnik_moderatora", "stażysta_moderator"]
   },
   "automod": {
-    "wlaczony": true,
+    "wlaczony": false,
     "max_ostrzezenia": 5,
     "czas_wyciszenia": {
       "pierwsze": 600,
@@ -42,13 +42,13 @@
       "piąte": 604800
     },
     "filtrowane_slowa": [
-      "słowo1",
-      "słowo2",
-      "słowo3"
+      "przykład1",
+      "przykład2",
+      "przykład3"
     ],
     "limit_caps_procent": 70,
     "limit_spam_wiadomosci": 5,
     "limit_spam_czas": 3,
-    "wylaczone_kanaly": ["123456789012345691", "123456789012345692", "123456789012345693"]
+    "wylaczone_kanaly": []
   }
 }
