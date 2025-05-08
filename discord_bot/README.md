@@ -1,81 +1,198 @@
-# Modular Discord Bot
+# Discord Bot Moderacyjny
 
-A modular Discord bot with various functionalities including message sending, reaction roles, user verification, moderation tools, and a "gulag" system.
+Wielofunkcyjny bot Discord napisany w Discord.js z systemem moderacji, weryfikacji użytkowników, reakcji na role, oraz unikalnym systemem "gulagu".
 
-## Features
+## Funkcjonalności
 
-- **Predefined Messages**: Send specific messages via slash commands
-- **Reaction Roles**: Allow users to self-assign roles by reacting to messages
-- **Verification System**: Remove one role and assign another via a command
-- **Gulag System**: Remove a user's roles and assign a "jail" role
-- **Moderation Tools**: Delete messages, warn, kick, and ban users
+- **System Moderacji**:
+  - Ostrzeżenia użytkowników z bazą danych SQLite
+  - Zarządzanie ostrzeżeniami (wyświetlanie, usuwanie, czyszczenie)
+  - Komendy wyrzucania (kick) i banowania użytkowników
+  - Usuwanie wiadomości (czyszczenie czatu)
+  
+- **System Gulagu**:
+  - Tymczasowe kary z automatycznym zakończeniem
+  - Przechowywanie oryginalnych ról użytkownika i przywracanie ich po karze
+  - Konfigurowalny czas trwania kar (sekundy, minuty, godziny, dni, tygodnie)
+  - Persystencja kar po restartach bota
 
-## Setup
+- **System Weryfikacji**:
+  - Przydzielanie/usuwanie ról weryfikacyjnych
+  - Konfigurowalny proces weryfikacji
 
-1. Clone this repository
-2. Install dependencies:
+- **Reakcje na Role**:
+  - Przypisywanie ról na podstawie reakcji pod wiadomościami
+  - Konfigurowalne emoji i przypisane do nich role
+
+- **Predefiniowane Wiadomości**:
+  - Wysyłanie zapisanych wcześniej wiadomości za pomocą komend
+
+- **Panel Konfiguracyjny**:
+  - Interfejs komend do konfiguracji bota bez edycji plików JSON
+
+## Wymagania
+
+- Node.js (wersja 16.x lub nowsza)
+- Discord.js (v14.x)
+- SQLite3
+- Dostęp do API Discord
+
+## Instalacja
+
+1. Sklonuj repozytorium
    ```
-   npm install discord.js sqlite3 dotenv
-   ```
-   
-   If you're having issues with the SQLite installation on certain environments:
-   ```
-   npm install --build-from-source sqlite3
+   git clone <repozytorium>
+   cd discord_bot
    ```
 
-3. Ensure your data directory exists:
+2. Zainstaluj zależności
    ```
-   mkdir -p data
+   npm install
    ```
 
-4. Create a `.env` file based on `.env.example` and fill in your bot token and application ID:
+3. Utwórz plik `.env` w głównym katalogu i dodaj wymagane dane
    ```
-   TOKEN=your_discord_bot_token_here
-   APPLICATION_ID=your_application_id_here
-   GUILD_ID=your_guild_id_here  # Optional: for development in a specific server
+   TOKEN=twoj_token_discord_bota
+   APPLICATION_ID=twoj_application_id
+   GUILD_ID=opcjonalne_id_serwera_do_testow
    ```
-4. Deploy slash commands:
+
+4. Zarejestruj komendy
    ```
    npm run deploy
    ```
-5. Start the bot:
+
+5. Uruchom bota
    ```
    npm start
    ```
 
-## Configuration
+## Uruchamianie
 
-All bot configuration is stored in the `/config` directory as JSON files in Polish language:
+Bot może być uruchomiony na dwa sposoby:
 
-- `wiadomosci.json`: Predefined messages
-- `weryfikacja.json`: User verification settings
-- `reakcje_role.json`: Role reaction settings
-- `moderacja.json`: Moderation tools settings
-- `gulag.json`: Gulag system settings
+- **Windows**: Uruchom plik `start.bat`
+- **Linux/macOS**: Uruchom plik `start.sh`
 
-## Commands
-
-- `/message [type]`: Send a predefined message
-- `/verify [user]`: Verify a user (remove unverified role, add verified role)
-- `/reactionroles [channel]`: Create a reaction roles message in a channel
-- `/gulag [user] [reason] [duration]`: Send a user to the gulag
-- `/ungulag [user]`: Release a user from the gulag
-- `/clear [count]`: Delete a specified number of messages (1-100)
-- `/warn [user] [reason]`: Warn a user
-- `/kick [user] [reason]`: Kick a user from the server
-- `/ban [user] [reason] [delete_days]`: Ban a user from the server
-
-## Role Reactions
-
-Users can get roles by reacting to messages with specific emojis, as defined in the `reakcje_role.json` configuration file.
-
-## Development
-
-To run the bot in development mode with auto-restart on file changes:
+Dla deweloperów dostępny jest tryb z automatycznym odświeżaniem po zmianach:
 ```
 npm run dev
 ```
 
-## License
+## Komendy
+
+### Moderacja
+
+| Komenda | Parametry | Opis |
+|---------|-----------|------|
+| `/warn` | `user`, `reason` | Ostrzega użytkownika i zapisuje ostrzeżenie w bazie danych |
+| `/warnings` | `user` | Wyświetla listę ostrzeżeń użytkownika |
+| `/delwarn` | `id` | Usuwa konkretne ostrzeżenie |
+| `/clearwarns` | `user` | Usuwa wszystkie ostrzeżenia użytkownika |
+| `/kick` | `user`, `reason` | Wyrzuca użytkownika z serwera |
+| `/ban` | `user`, `reason`, `delete_days` | Banuje użytkownika i opcjonalnie usuwa jego wiadomości |
+| `/clear` | `count` | Usuwa określoną liczbę wiadomości (1-100) |
+
+### Gulag
+
+| Komenda | Parametry | Opis |
+|---------|-----------|------|
+| `/gulag` | `user`, `reason`, `duration` | Wysyła użytkownika do gulagu na określony czas |
+| `/ungulag` | `user` | Wypuszcza użytkownika z gulagu |
+
+**Formaty czasu dla `duration`**:
+- `s` - sekundy (np. 30s)
+- `m` - minuty (np. 15m)
+- `h` - godziny (np. 2h)
+- `d` - dni (np. 3d)
+- `w` - tygodnie (np. 1w)
+
+### Weryfikacja i Role
+
+| Komenda | Parametry | Opis |
+|---------|-----------|------|
+| `/verify` | `user` | Weryfikuje użytkownika (usuwa rolę niezweryfikowanego, dodaje rolę zweryfikowanego) |
+| `/reactionroles` | `channel` | Tworzy wiadomość z reakcjami przypisanymi do ról |
+| `/message` | `type` | Wysyła predefiniowaną wiadomość |
+
+### Konfiguracja
+
+| Komenda | Parametry | Opis |
+|---------|-----------|------|
+| `/config` | | Otwiera panel konfiguracyjny bota |
+
+## Konfiguracja
+
+Wszystkie ustawienia są przechowywane w plikach JSON w katalogu `/config`:
+
+| Plik | Opis |
+|------|------|
+| `gulag.json` | Konfiguracja systemu gulagu (kanały, role, wiadomości, limity czasowe) |
+| `gulag_users.json` | Dane aktualnie uwięzionych użytkowników (automatycznie zarządzane) |
+| `moderacja.json` | Konfiguracja narzędzi moderacyjnych (kanały logów, wiadomości) |
+| `reakcje_role.json` | Konfiguracja systemu ról przyznawanych za reakcje |
+| `weryfikacja.json` | Konfiguracja systemu weryfikacji użytkowników |
+| `wiadomosci.json` | Predefiniowane wiadomości do wysyłania komendą `/message` |
+
+## Struktura Projektu
+
+```
+discord_bot/
+├── config/             # Pliki konfiguracyjne
+├── data/               # Dane bazy danych SQLite
+├── src/
+│   ├── commands/       # Komendy dostępne dla użytkowników
+│   ├── config-ui/      # System konfiguracji w postaci komend
+│   │   ├── commands/   # Komendy konfiguracyjne
+│   │   ├── handlers/   # Obsługa interakcji konfiguracyjnych
+│   │   ├── utils/      # Narzędzia pomocnicze dla konfiguracji
+│   │   └── views/      # Widoki interfejsu konfiguracyjnego
+│   ├── events/         # Obsługa zdarzeń Discord (reakcje, wiadomości)
+│   ├── utils/          # Narzędzia pomocnicze
+│   ├── deploy-commands.js  # Skrypt do rejestracji komend slash
+│   └── index.js        # Główny plik bota
+├── .env                # Zmienne środowiskowe (token, ID)
+├── package.json        # Zależności i skrypty npm
+└── README.md           # Dokumentacja (ten plik)
+```
+
+## System Gulagu - Szczegóły
+
+System gulagu pozwala na tymczasowe kary dla użytkowników:
+
+1. **Działanie**: Bot zabiera wszystkie role użytkownika, przydziela rolę więźnia i automatycznie przywraca oryginalne role po zakończeniu kary
+2. **Funkcje**:
+   - Automatyczne wypuszczanie po określonym czasie
+   - Dzienniki aktywności (logi)
+   - Powiadomienia na kanale gulagu
+   - Powiadomienia DM dla ukaranych użytkowników
+   - Persystencja kar po restarcie bota
+3. **Przykład użycia**:
+   ```
+   /gulag user:@użytkownik reason:spam duration:2h
+   ```
+
+## System Ostrzeżeń - Szczegóły
+
+Bot posiada zaawansowany system ostrzeżeń:
+
+1. **Cechy**:
+   - Zapisywanie ostrzeżeń w bazie SQLite
+   - Unikalny identyfikator dla każdego ostrzeżenia
+   - Śledzenie ilości aktywnych ostrzeżeń
+   - Opcje zarządzania ostrzeżeniami (delwarn, clearwarns)
+2. **Przykład użycia**:
+   ```
+   /warn user:@użytkownik reason:Naruszenie zasad
+   ```
+
+## Wkład i Rozwój
+
+Jeśli chcesz wprowadzić zmiany w bocie:
+1. Sformatuj kod zgodnie z przyjętymi standardami
+2. Testuj zmiany przed przesłaniem
+3. Aktualizuj dokumentację w razie potrzeby
+
+## Licencja
 
 ISC
