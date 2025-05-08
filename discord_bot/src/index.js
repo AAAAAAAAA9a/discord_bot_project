@@ -13,6 +13,9 @@ const client = new Client({
     ]
 });
 
+// Eksportuj klienta, aby był dostępny w innych modułach (np. gulagUtils)
+exports.client = client;
+
 // Initialize collections for commands and events
 client.commands = new Collection();
 client.events = new Collection();
@@ -65,6 +68,14 @@ for (const file of eventFiles) {
 
 // Import database for proper shutdown handling
 const warningsDB = require('./utils/warningsSQLiteDB');
+// Import gulag utils
+const GulagUtils = require('./utils/gulagUtils');
+
+// Inicjalizuj system gulagu po zalogowaniu
+client.once('ready', () => {
+    console.log('Inicjalizacja systemu gulagu...');
+    GulagUtils.initializeGulag(client);
+});
 
 // Add proper shutdown handlers
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
